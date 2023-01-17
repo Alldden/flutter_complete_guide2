@@ -74,18 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text(
+        'Personal Expenses',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+      actions: [
+        IconButton(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: Icon(Icons.add))
+      ],
+    );
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Personal Expenses',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () => _startAddNewTransaction(context),
-                icon: Icon(Icons.add))
-          ],
-        ),
+        appBar: appBar,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => _startAddNewTransaction(context),
@@ -94,9 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.4,
+                child: Chart(_recentTransaction)),
             Expanded(
-                child: TransactionList(_userTransaction, _deleteTransaction))
+                child: Container(
+                    height: (MediaQuery.of(context).size.height -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.6,
+                    child:
+                        TransactionList(_userTransaction, _deleteTransaction)))
           ],
         ));
   }
