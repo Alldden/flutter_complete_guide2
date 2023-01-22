@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/widgets/transaction_list.dart';
@@ -103,10 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: TransactionList(_userTransaction, _deleteTransaction));
     return Scaffold(
         appBar: appBar,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context),
-        ),
+        floatingActionButton: Platform.isIOS
+            ? Container()
+            : FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () => _startAddNewTransaction(context),
+              ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,7 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Show chart"),
-                  Switch(
+                  Switch.adaptive(
+                      activeColor: Theme.of(context).accentColor,
                       value: _showChart,
                       onChanged: (value) {
                         setState(() {
