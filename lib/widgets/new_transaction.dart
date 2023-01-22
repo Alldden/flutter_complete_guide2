@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'adaptive_flat_button.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -81,16 +82,7 @@ class _NewTransactionState extends State<NewTransaction> {
                         ? "No date chosen!"
                         : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
                   ),
-                  TextButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.black)),
-                    onPressed: _presentDatePicker,
-                    child: Text(
-                      'Chose Date',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  )
+                  AdaptiveButton("Chose Date", _presentDatePicker)
                 ],
               ),
               ElevatedButton(
